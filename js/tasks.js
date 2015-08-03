@@ -19,18 +19,26 @@ var tasks = [
       Node.find(function (error, data) {
         if (error) console.log(error);
 
+        var addresses = [];
+
         data.forEach(function (datum) {
+          if (addresses.indexOf(datum.address)>-1) {
+            datum.remove();
+            console.log('Removing duplicate node: \'' + datum.name + '\'.');
+          } else {
+            addresses.push(datum.address);
 
-          request(datum.address, function (error,response,body) {
-            if (error) {
-              console.log(error);
-              console.log('Removing invalid node: \'' + datum.name + '\'.');
+            request(datum.address, function (error,response,body) {
+              if (error) {
+                console.log(error);
+                console.log('Removing invalid node: \'' + datum.name + '\'.');
 
-              datum.remove();
-            } else {
-              console.log('\'' + datum.name + '\' is valid.');
-            }
-          });
+                datum.remove();
+              } else {
+                console.log('\'' + datum.name + '\' is valid.');
+              }
+            });
+          }
 
         });
       });
