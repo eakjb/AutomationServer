@@ -3,18 +3,15 @@ var request = require('request');
 var models = require('./models');
 var Node = models.Node;
 
-function delay(length) {
-  return function (env) {
-    if (env.lastRun==='NEVER') return true;
-    return env.now.getTime() > env.lastRun.getTime() + length;
-  }
-}
+var localTasks = require('./tasks.local');
+
+var util = require('./util');
 
 var tasks = [
   {
     name: 'Validate Nodes',
-    enabled: true,
-    shouldRun: delay(5000),
+    enabled: false,
+    shouldRun: util.delay(5000),
     run: function (env) {
       Node.find(function (error, data) {
         if (error) console.log(error);
@@ -46,7 +43,12 @@ var tasks = [
   }
 ];
 
+localTasks.forEach(function (task) {
+  tasks.push(task);
+});
+
 module.exports = {
   tasks:tasks,
-  delay: 1000
+  local:localTasks,
+  delay: 500
 };

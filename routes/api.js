@@ -7,10 +7,10 @@ var app = express();
 
 models.all.forEach(function (model) {
   restify.serve(router, model, {
-    onError: function (err, req, res, next) {
-      console.log(err);
-      console.log(req.body);
-    },
+    //onError: function (err, req, res, next) {
+    //  console.log(err);
+    //  console.log(req.body);
+    //},
     middleware: function(req,res,next) {
       res.header("Access-Control-Allow-Origin", "*");
       res.header("Access-Control-Allow-Headers", "X-Requested-With,Content-Type");
