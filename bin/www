@@ -1,4 +1,6 @@
 #!/usr/bin/env node
+process.env.TZ = 'America/Denver';
+
 var debug = require('debug')('expressapp');
 var app = require('../app');
 
