@@ -10,8 +10,8 @@ var util = require('./util');
 var tasks = [
   {
     name: 'Validate Nodes',
-    enabled: false,
-    shouldRun: util.delay(5000),
+    enabled: true,
+    shouldRun: util.delay(10000),
     run: function (env) {
       Node.find(function (error, data) {
         if (error) console.log(error);
