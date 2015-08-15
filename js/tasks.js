@@ -28,12 +28,18 @@ var tasks = [
             request(datum.address, function (error,response,body) {
               if (error) {
                 console.log(error);
-                console.log('Removing invalid node: \'' + datum.name + '\'.');
+                console.log('Marking invalid node: \'' + datum.name + '\'.');
 
-                datum.remove();
+                datum.offline = true;
               } else {
                 console.log('\'' + datum.name + '\' is valid.');
+
+                datum.offline = false;
               }
+
+              datum.save(function (e) {
+                console.log(e);
+              });
             });
           }
 
