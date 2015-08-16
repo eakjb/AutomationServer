@@ -43,13 +43,37 @@ tasks.push({
 });
 
 tasks.push({
-  name: 'Turn off Lights in Jake\'s Room on School Nights',
+  name: 'Turn off Lights in Jake\'s Room at Night (warning off)',
+  enabled: true,
+  shouldRun: util.time({
+    hour:21,
+    minute: 55,
+    second: 0,
+    daysOfWeek:util.FULL_WEEK
+  }),
+  run: util.state('JakeRoom',2,'off',console.log)
+});
+
+tasks.push({
+  name: 'Turn off Lights in Jake\'s Room at Night (on)',
+  enabled: true,
+  shouldRun: util.time({
+    hour:21,
+    minute: 55,
+    second: 20,
+    daysOfWeek:util.FULL_WEEK
+  }),
+  run: util.state('JakeRoom',2,'on',console.log)
+});
+
+tasks.push({
+  name: 'Turn off Lights in Jake\'s Room at Night',
   enabled: true,
   shouldRun: util.time({
     hour:22,
     minute: 0,
     second: 0,
-    daysOfWeek:util.SCHOOL_DAYS
+    daysOfWeek:util.FULL_WEEK
   }),
   run: util.state('JakeRoom',2,'off',console.log)
 });
