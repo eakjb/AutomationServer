@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 process.env.TZ = 'America/Denver';
+process.env.PORT=80;
 
 var debug = require('debug')('expressapp');
 var app = require('../app');
