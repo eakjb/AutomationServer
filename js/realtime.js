@@ -1,3 +1,9 @@
-/**
- * Created by jakebillings on 10/12/15.
- */
+var _io;
+module.exports = {
+  init:function (io) {
+    _io=io;
+  },
+  sendNotification: function (notification) {
+    _io.emit('notification', notification);
+  }
+};

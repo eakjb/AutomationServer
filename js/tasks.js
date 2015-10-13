@@ -2,6 +2,7 @@ var request = require('request');
 
 var models = require('./models');
 var Node = models.Node;
+var Notification = models.Notification;
 
 var localTasks = require('./tasks.local');
 
@@ -11,7 +12,7 @@ var tasks = [
   {
     name: 'Validate Nodes',
     enabled: true,
-    shouldRun: util.delay(10000),
+    shouldRun: util.delay(30000),
     run: function (env) {
       Node.find(function (error, data) {
         if (error) console.log(error);
@@ -44,6 +45,20 @@ var tasks = [
           }
 
         });
+      });
+    }
+  },
+  {
+    name: 'Remove Old Notifications',
+    enabled: true,
+    shouldRun: util.delay(36000000),
+    run: function (env) {
+      var old = new Date();
+      old.setHours(old.getHours()-24);
+      Notification.remove({timestamp: {$lt:old}}, function(err, result) {
+        if (err) {
+          console.log(err);
+        }
       });
     }
   }

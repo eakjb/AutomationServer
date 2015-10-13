@@ -1,12 +1,19 @@
 #!/usr/bin/env node
 process.env.TZ = 'America/Denver';
-process.env.PORT=80;
 
 var debug = require('debug')('expressapp');
 var app = require('../app');
+var realtime = require('../js/realtime');
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', parseInt(process.env.PORT || 80));
 
 var server = app.listen(app.get('port'), function() {
   debug('Express server listening on port ' + server.address().port);
+});
+
+var io = require('socket.io')(server);
+realtime.init(io);
+
+process.on('uncaughtException', function (err) {
+  console.log(err);
 });

@@ -42,6 +42,7 @@ app.use('/', api);
 app.use(function (req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
+  console.log('Not Found');
   next(err);
 });
 
@@ -58,6 +59,7 @@ if (app.get('env') === 'development') {
       error: err,
       title: 'error'
     });
+    console.log('Error');
   });
 }
 
