@@ -51,7 +51,7 @@ var tasks = [
   {
     name: 'Remove Old Notifications',
     enabled: true,
-    shouldRun: util.delay(3600),//0000),
+    shouldRun: util.delay(36000000),
     run: function (env) {
       var old = new Date();
       old.setHours(old.getHours()-24);
