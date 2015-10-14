@@ -28,8 +28,8 @@ module.exports = {
             to: recipient.email,
             from: "Eakjb Auto <eakjb.auto@gmail.com>",
             subject: moment(notification.timestamp).format('MMM-DD-YYYY hh:mm A'),
-            text: notification.title + ': ' + notification.body||'[No Content]',
-            html: notification.title + ': ' + notification.body||'[No Content]'
+            text: notification.title + ': ' + (notification.body||'[No Content]'),
+            html: notification.title + ': ' + (notification.body||'[No Content]')
 
           }, function (error, info) {
             if (error) {
