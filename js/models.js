@@ -3,9 +3,9 @@ var Schema = mongoose.Schema;
 var realtime = require('./realtime');
 
 var NodeSchema = new Schema({
-  name: { type: String, required: true },
+  name: { type: String, required: true, unique:true, dropDups:true },
   description: { type: String, required: false },
-  address: {type: String, required: true},
+  address: {type: String, required: true, unique:true, dropDups:true },
   offline: {type: Boolean, required: false}
 });
 var Node = mongoose.model('Node', NodeSchema);
