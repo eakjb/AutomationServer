@@ -165,12 +165,12 @@ tasks.push({
 tasks.push({
   name: 'Turn off Christmas Tree at night',
   enabled: true,
-  shouldRun: util.time({
-    hour: 21,
-    minute: 30,
-    second: 0,
-    daysOfWeek:util.FULL_WEEK
-  }),
+  shouldRun: util.delay(1000), //util.time({
+  //  hour: 21,
+  //  minute: 30,
+  //  second: 0,
+  //  daysOfWeek:util.FULL_WEEK
+  //}),
   run: util.state('Living Room',0,'off',console.log)
 });
 

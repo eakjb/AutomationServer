@@ -94,7 +94,7 @@ var runTasks = function (tasks,delay) {
 
 setTimeout(function () {
   runTasks(tasks.tasks,tasks.delay)
-},5000);
+},1);
 
 module.exports = app;
 

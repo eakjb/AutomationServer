@@ -52,17 +52,16 @@ module.exports.state = function (nodeName, output_id, state, onError) {
       if (data) {
         var datum = data[0];
 
-        //console.log(data);
-
         if (datum) {
           request(datum.address + '/outputs', function (error, response, body) {
             if (error && onError) {
               onError(error);
             }
 
-            var outputs = JSON.parse(body).data;
-
-            //console.log(outputs);
+            var outputs = JSON.parse(body);
+            if (outputs.isWrapped&&outputs.data) {
+              outputs=outputs.data
+            }
 
             outputs.forEach(function (output) {
               if (output.output_id === output_id) {
