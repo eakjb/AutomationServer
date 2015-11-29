@@ -92,7 +92,9 @@ var runTasks = function (tasks,delay) {
   });
 };
 
-setTimeout(runTasks,5000);
+setTimeout(function () {
+  runTasks(tasks.tasks,tasks.delay)
+},5000);
 
 module.exports = app;
 
