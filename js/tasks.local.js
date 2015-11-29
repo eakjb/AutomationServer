@@ -31,6 +31,18 @@ tasks.push({
 });
 
 tasks.push({
+  name: 'Turn off Lights in Jake\'s Room in morning in case he forgot something',
+  enabled: true,
+  shouldRun: util.time({
+    hour:8,
+    minute: 0,
+    second: 0,
+    daysOfWeek:util.FULL_WEEK
+  }),
+  run: util.state('JakeRoom',2,'off',console.log)
+});
+
+tasks.push({
   name: 'Turn on Lights in Jake\'s Room on School Evenings',
   enabled: true,
   shouldRun: util.time({
@@ -76,6 +88,90 @@ tasks.push({
     daysOfWeek:util.FULL_WEEK
   }),
   run: util.state('JakeRoom',2,'off',console.log)
+});
+
+tasks.push({
+  name: 'Turn on Christmas Tree in Morning on School Days',
+  enabled: true,
+  shouldRun: util.time({
+    hour: 5,
+    minute: 0,
+    second: 0,
+    daysOfWeek:util.WEEK_DAYS
+  }),
+  run: util.state('Living Room',0,'on',console.log)
+});
+
+tasks.push({
+  name: 'Turn on Christmas Tree in Morning on Weekends',
+  enabled: true,
+  shouldRun: util.time({
+    hour: 7,
+    minute: 30,
+    second: 0,
+    daysOfWeek:util.WEEKENDS
+  }),
+  run: util.state('Living Room',0,'on',console.log)
+});
+
+tasks.push({
+  name: 'Turn off Christmas Tree in Morning on School Days',
+  enabled: true,
+  shouldRun: util.time({
+    hour: 6,
+    minute: 30,
+    second: 0,
+    daysOfWeek:util.WEEK_DAYS
+  }),
+  run: util.state('Living Room',0,'off',console.log)
+});
+
+tasks.push({
+  name: 'Turn on Christmas Tree in Morning on School Days for Jake',
+  enabled: true,
+  shouldRun: util.time({
+    hour: 6,
+    minute: 58,
+    second: 0,
+    daysOfWeek:util.WEEK_DAYS
+  }),
+  run: util.state('Living Room',0,'on',console.log)
+});
+
+tasks.push({
+  name: 'Turn off Christmas Tree in Morning on School Days for Jake',
+  enabled: true,
+  shouldRun: util.time({
+    hour: 7,
+    minute: 30,
+    second: 0,
+    daysOfWeek:util.WEEK_DAYS
+  }),
+  run: util.state('Living Room',0,'off',console.log)
+});
+
+tasks.push({
+  name: 'Turn on Christmas Tree in Afternoon on School Days',
+  enabled: true,
+  shouldRun: util.time({
+    hour: 5,
+    minute: 0,
+    second: 0,
+    daysOfWeek:util.WEEK_DAYS
+  }),
+  run: util.state('Living Room',0,'on',console.log)
+});
+
+tasks.push({
+  name: 'Turn off Christmas Tree at night',
+  enabled: true,
+  shouldRun: util.time({
+    hour: 21,
+    minute: 30,
+    second: 0,
+    daysOfWeek:util.FULL_WEEK
+  }),
+  run: util.state('Living Room',0,'off',console.log)
 });
 
 module.exports = tasks;
