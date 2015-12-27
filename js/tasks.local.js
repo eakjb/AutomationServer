@@ -10,84 +10,84 @@ tasks.push({
   name: 'Turn on Lights in Jake\'s Room in morning',
   enabled: true,
   shouldRun: util.time({
-    hour:6,
+    hour: 6,
     minute: 30,
     second: 0,
-    daysOfWeek:util.WEEK_DAYS
+    daysOfWeek: util.WEEK_DAYS
   }),
-  run: util.state('JakeRoom',2,'on',console.log)
+  run: util.state('JakeRoom', 2, 'on', console.log)
 });
 
 tasks.push({
   name: 'Turn off Lights in Jake\'s Room in morning',
   enabled: true,
   shouldRun: util.time({
-    hour:7,
+    hour: 7,
     minute: 5,
     second: 0,
-    daysOfWeek:util.FULL_WEEK
-    }),
-  run: util.state('JakeRoom',2,'off',console.log)
+    daysOfWeek: util.FULL_WEEK
+  }),
+  run: util.state('JakeRoom', 2, 'off', console.log)
 });
 
 tasks.push({
   name: 'Turn off Lights in Jake\'s Room in morning in case he forgot something',
   enabled: true,
   shouldRun: util.time({
-    hour:8,
+    hour: 8,
     minute: 0,
     second: 0,
-    daysOfWeek:util.FULL_WEEK
+    daysOfWeek: util.FULL_WEEK
   }),
-  run: util.state('JakeRoom',2,'off',console.log)
+  run: util.state('JakeRoom', 2, 'off', console.log)
 });
 
 tasks.push({
   name: 'Turn on Lights in Jake\'s Room on School Evenings',
   enabled: true,
   shouldRun: util.time({
-    hour:19,
+    hour: 19,
     minute: 30,
     second: 0,
-    daysOfWeek:util.SCHOOL_DAYS
+    daysOfWeek: util.SCHOOL_DAYS
   }),
-  run: util.state('JakeRoom',2,'on',console.log)
+  run: util.state('JakeRoom', 2, 'on', console.log)
 });
 
 tasks.push({
   name: 'Turn off Lights in Jake\'s Room at Night (warning off)',
   enabled: true,
   shouldRun: util.time({
-    hour:21,
+    hour: 21,
     minute: 55,
     second: 0,
-    daysOfWeek:util.FULL_WEEK
+    daysOfWeek: util.FULL_WEEK
   }),
-  run: util.state('JakeRoom',2,'off',console.log)
+  run: util.state('JakeRoom', 2, 'off', console.log)
 });
 
 tasks.push({
   name: 'Turn off Lights in Jake\'s Room at Night (on)',
   enabled: true,
   shouldRun: util.time({
-    hour:21,
+    hour: 21,
     minute: 55,
     second: 20,
-    daysOfWeek:util.FULL_WEEK
+    daysOfWeek: util.FULL_WEEK
   }),
-  run: util.state('JakeRoom',2,'on',console.log)
+  run: util.state('JakeRoom', 2, 'on', console.log)
 });
 
 tasks.push({
   name: 'Turn off Lights in Jake\'s Room at Night',
   enabled: true,
   shouldRun: util.time({
-    hour:22,
+    hour: 22,
     minute: 0,
     second: 0,
-    daysOfWeek:util.FULL_WEEK
+    daysOfWeek: util.FULL_WEEK
   }),
-  run: util.state('JakeRoom',2,'off',console.log)
+  run: util.state('JakeRoom', 2, 'off', console.log)
 });
 
 tasks.push({
@@ -97,9 +97,9 @@ tasks.push({
     hour: 5,
     minute: 0,
     second: 0,
-    daysOfWeek:util.WEEK_DAYS
+    daysOfWeek: util.WEEK_DAYS
   }),
-  run: util.state('Living Room',0,'on',console.log)
+  run: util.state('Living Room', 0, 'on', console.log)
 });
 
 tasks.push({
@@ -109,9 +109,9 @@ tasks.push({
     hour: 7,
     minute: 30,
     second: 0,
-    daysOfWeek:util.WEEKENDS
+    daysOfWeek: util.WEEKENDS
   }),
-  run: util.state('Living Room',0,'on',console.log)
+  run: util.state('Living Room', 0, 'on', console.log)
 });
 
 tasks.push({
@@ -121,9 +121,9 @@ tasks.push({
     hour: 6,
     minute: 30,
     second: 0,
-    daysOfWeek:util.WEEK_DAYS
+    daysOfWeek: util.WEEK_DAYS
   }),
-  run: util.state('Living Room',0,'off',console.log)
+  run: util.state('Living Room', 0, 'off', console.log)
 });
 
 tasks.push({
@@ -133,9 +133,9 @@ tasks.push({
     hour: 6,
     minute: 58,
     second: 0,
-    daysOfWeek:util.WEEK_DAYS
+    daysOfWeek: util.WEEK_DAYS
   }),
-  run: util.state('Living Room',0,'on',console.log)
+  run: util.state('Living Room', 0, 'on', console.log)
 });
 
 tasks.push({
@@ -145,9 +145,9 @@ tasks.push({
     hour: 7,
     minute: 30,
     second: 0,
-    daysOfWeek:util.WEEK_DAYS
+    daysOfWeek: util.WEEK_DAYS
   }),
-  run: util.state('Living Room',0,'off',console.log)
+  run: util.state('Living Room', 0, 'off', console.log)
 });
 
 tasks.push({
@@ -157,21 +157,21 @@ tasks.push({
     hour: 5,
     minute: 0,
     second: 0,
-    daysOfWeek:util.WEEK_DAYS
+    daysOfWeek: util.WEEK_DAYS
   }),
-  run: util.state('Living Room',0,'on',console.log)
+  run: util.state('Living Room', 0, 'on', console.log)
 });
 
 tasks.push({
   name: 'Turn off Christmas Tree at night',
   enabled: true,
-  shouldRun: util.delay(1000), //util.time({
-  //  hour: 21,
-  //  minute: 30,
-  //  second: 0,
-  //  daysOfWeek:util.FULL_WEEK
-  //}),
-  run: util.state('Living Room',0,'off',console.log)
+  shouldRun: util.time({
+    hour: 21,
+    minute: 30,
+    second: 0,
+    daysOfWeek: util.FULL_WEEK
+  }),
+  run: util.state('Living Room', 0, 'off', console.log)
 });
 
 module.exports = tasks;
