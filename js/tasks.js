@@ -1,8 +1,12 @@
 var request = require('request');
+var cheerio = require('cheerio')
 
 var models = require('./models');
 var Node = models.Node;
 var Notification = models.Notification;
+var Recipient = models.Recipient;
+
+var realtime = require('./realtime');
 
 var localTasks = require('./tasks.local');
 
@@ -58,6 +62,67 @@ var tasks = [
       Notification.remove({timestamp: {$lt:old}}, function(err, result) {
         if (err) {
           console.log(err);
+        }
+      });
+    }
+  },
+  {
+    name: 'Check For Snowday',
+    enabled: true,
+    shouldRun: util.delay(10000),
+    run: function (env) {
+      var schools = ['American Academy Castle Pines','STEM School and Academy'];
+      request("https://dcsdk12.org/school-closure-status", function (error,response,body) {
+        if (error) {
+          console.log(error);
+        } else {
+          var $ = cheerio.load(body);
+          $('.views-row').each(function (i,row) {
+            var schoolName = $(this,'a').text().trim();
+            if (schools.indexOf(schoolName)>-1) {
+              if($(this).html().indexOf('activities-regular')>-1) {
+                console.log(schoolName+' has school.')
+              } else {
+                console.log(schoolName+' has no school!!! Sending Notification!');
+
+                var start = new Date();
+                start.setHours(0,0,0,0);
+                var end = new Date();
+                end.setHours(24,0,0,0);
+
+                Notification.find({
+                  body: 'Could it be a snowday?',
+                  "timestamp": {"$gte": start, "$lt": end}
+                }, function (error, result) {
+                  if (error) {
+                    console.log(error);
+                  }
+
+                  if (!result||result.length<=0) {
+                    var notification = new Notification({
+                      title: schoolName + ' has a modified schedule',
+                      body: 'Could it be a snowday?',
+                      priority: 10000
+                    });
+
+                    notification.save(function (error) {
+                      if (error) {
+                        console.log('error saving snowday notification')
+                        console.log('error');
+                      }
+                    });
+
+                    Recipient.find({},function (error, result) {
+                      if (error) {
+                        console.log(error);
+                      }
+                      realtime.sendNotification(notification, result);
+                    });
+                  }
+                });
+              }
+            }
+          });
         }
       });
     }
