@@ -69,59 +69,64 @@ var tasks = [
   {
     name: 'Check For Snowday',
     enabled: true,
-    shouldRun: util.delay(10000),
+    shouldRun: util.delay(300000),
     run: function (env) {
       var schools = ['American Academy Castle Pines','STEM School and Academy'];
       request("https://dcsdk12.org/school-closure-status", function (error,response,body) {
         if (error) {
+          console.log('error loading snowday data');
           console.log(error);
         } else {
+          console.log('body loaded');
           var $ = cheerio.load(body);
           $('.views-row').each(function (i,row) {
-            var schoolName = $(this,'a').text().trim();
-            if (schools.indexOf(schoolName)>-1) {
-              if($(this).html().indexOf('activities-regular')>-1) {
-                console.log(schoolName+' has school.')
-              } else {
-                console.log(schoolName+' has no school!!! Sending Notification!');
+            var schoolName = $(this,'a').text().replace('Closure','').trim();
+            //console.log(schoolName);
+            schools.forEach(function (schoolName1) {
+              if (schoolName.indexOf(schoolName1)>-1) {
+                if($(row).html().indexOf('activities-regular')>-1) {
+                  console.log(schoolName+' has school.')
+                } else {
+                  console.log(schoolName+' has no school!!! Sending Notification!');
 
-                var start = new Date();
-                start.setHours(0,0,0,0);
-                var end = new Date();
-                end.setHours(24,0,0,0);
+                  var start = new Date();
+                  start.setHours(0,0,0,0);
+                  var end = new Date();
+                  end.setHours(24,0,0,0);
 
-                Notification.find({
-                  body: 'Could it be a snowday?',
-                  "timestamp": {"$gte": start, "$lt": end}
-                }, function (error, result) {
-                  if (error) {
-                    console.log(error);
-                  }
+                  Notification.find({
+                    body: 'Could it be a snowday?',
+                    "timestamp": {"$gte": start, "$lt": end}
+                  }, function (error, result) {
+                    if (error) {
+                      console.log(error);
+                    }
 
-                  if (!result||result.length<=0) {
-                    var notification = new Notification({
-                      title: schoolName + ' has a modified schedule',
-                      body: 'Could it be a snowday?',
-                      priority: 10000
-                    });
+                    if (!result||result.length<=0) {
+                      var notification = new Notification({
+                        title: schoolName + ' has a modified schedule',
+                        body: 'Could it be a snowday?',
+                        priority: 10000
+                      });
 
-                    notification.save(function (error) {
-                      if (error) {
-                        console.log('error saving snowday notification')
-                        console.log('error');
-                      }
-                    });
+                      notification.save(function (error) {
+                        if (error) {
+                          console.log('error saving snowday notification')
+                          console.log('error');
+                        }
+                      });
 
-                    Recipient.find({},function (error, result) {
-                      if (error) {
-                        console.log(error);
-                      }
-                      realtime.sendNotification(notification, result);
-                    });
-                  }
-                });
+                      Recipient.find({},function (error, result) {
+                        if (error) {
+                          console.log(error);
+                        }
+                        realtime.sendNotification(notification, result);
+                      });
+                    }
+                  });
+                }
               }
-            }
+            });
           });
         }
       });
@@ -136,5 +141,5 @@ localTasks.forEach(function (task) {
 module.exports = {
   tasks:tasks,
   local:localTasks,
-  delay: 500
+  delay: 1000
 };
