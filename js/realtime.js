@@ -17,7 +17,6 @@ module.exports = {
   },
   sendNotification: function (notification,recipients) {
     _io.emit('notification', notification);
-
     recipients.forEach(function (recipient) {
       console.log(recipient);
 

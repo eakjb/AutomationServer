@@ -1,12 +1,10 @@
 var request = require('request');
-var cheerio = require('cheerio')
+var cheerio = require('cheerio');
 
 var models = require('./models');
 var Node = models.Node;
 var Notification = models.Notification;
 var Recipient = models.Recipient;
-
-var realtime = require('./realtime');
 
 var localTasks = require('./tasks.local');
 
@@ -111,16 +109,9 @@ var tasks = [
 
                       notification.save(function (error) {
                         if (error) {
-                          console.log('error saving snowday notification')
+                          console.log('error saving snowday notification');
                           console.log('error');
                         }
-                      });
-
-                      Recipient.find({},function (error, result) {
-                        if (error) {
-                          console.log(error);
-                        }
-                        realtime.sendNotification(notification, result);
                       });
                     }
                   });

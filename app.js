@@ -12,6 +12,11 @@ var api = require('./routes/api');
 
 var tasks = require('./js/tasks');
 
+var realtime = require('./js/realtime');
+var models = require('./js/models');
+var Notification = models.Notification;
+var Recipient = models.Recipient;
+
 mongoose.connect('mongodb://localhost/automation');
 
 var app = express();
@@ -96,5 +101,17 @@ setTimeout(function () {
   runTasks(tasks.tasks,tasks.delay)
 },1);
 
+var notification = new Notification({
+  title: 'Server Startup',
+  body: 'I am back from my slumber',
+  priority: 10000
+});
+
+notification.save(function (error) {
+  if (error) {
+    console.log('error saving startup notification');
+    console.log(error);
+  }
+});
 module.exports = app;
 
